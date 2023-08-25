@@ -5,7 +5,7 @@ var speed = 100.0
 
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	
 	# Get the input direction and handle the movement/deceleration.
 	var directionX = Input.get_axis("MoveLeft", "MoveRight")
