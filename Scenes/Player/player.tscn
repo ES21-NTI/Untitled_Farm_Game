@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://8tonvp41vmsi"]
+[gd_scene load_steps=7 format=3 uid="uid://8tonvp41vmsi"]
 
 [ext_resource type="Script" path="res://Scripts/Player/player.gd" id="1_qk652"]
 [ext_resource type="Texture2D" uid="uid://kxojsa4t4t1q" path="res://Assets/Sprites/Characters/Player/character_idle_U1.png" id="2_mkb60"]
+[ext_resource type="Script" path="res://Scripts/Player/PickupZone.gd" id="3_83cda"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_yfkdg"]
 animations = [{
@@ -18,6 +19,9 @@ animations = [{
 radius = 3.0
 height = 8.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v4xs0"]
+size = Vector2(48, 48)
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_qk652")
 
@@ -29,3 +33,14 @@ sprite_frames = SubResource("SpriteFrames_yfkdg")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_wixbl")
+
+[node name="PickupZone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("3_83cda")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupZone"]
+shape = SubResource("RectangleShape2D_v4xs0")
+
+[connection signal="body_entered" from="PickupZone" to="PickupZone" method="_on_body_entered"]
+[connection signal="body_exited" from="PickupZone" to="PickupZone" method="_on_body_exited"]

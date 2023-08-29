@@ -1,0 +1,24 @@
+{
+	"Stick": {
+		"ItemCategory": "Resource",
+		"StackSize": 99,
+		"Description": "Is stick"
+	},
+	"Egg": {
+		"ItemCategory": "Consumable",
+		"AddHealth": 5,
+		"ReduceHunger": 15,
+		"StackSize": 99,
+		"Description": "No sprut"
+	},
+	"Iron Sword": {
+		"ItemCategory": "Weapon",
+		"WeaponCategory": "Melee",
+		"WeaponType": "Sword",
+		"Damage": "30",
+		"AttackSpeed": 0.75,
+		"StackSize": 1,
+		"Description": "Not a diamond sword sword"
+		
+	}
+}
