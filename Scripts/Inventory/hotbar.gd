@@ -19,10 +19,14 @@ func _ready():
 	initializeHotbar()
 	updateActiveItemLabel()
 
+#func _process(delta):
+#	useActiveItem()
 
 func updateActiveItemLabel():
 	if slots[PlayerInventory.activeItemSlot].item != null: # Checks if there is an item
 		activeItemLabel.text = slots[PlayerInventory.activeItemSlot].item.itemName
+		print(slots[PlayerInventory.activeItemSlot].item.itemName)
+		equipActiveItem()
 	else:
 		activeItemLabel.text = ""
 
@@ -92,3 +96,19 @@ func leftClickNotHolding(slot: SlotClass):
 	find_parent("UserInterface").holdingItem = slot.item
 	slot.pickFromSlot(find_parent("UserInterface").holdingItem)
 	find_parent("UserInterface").holdingItem.global_position = get_global_mouse_position()
+
+func equipActiveItem():
+	if slots[PlayerInventory.activeItemSlot].item != null: # Checks if there is an item in the active item slot
+		var activeItemCategory = JsonData.itemData[slots[PlayerInventory.activeItemSlot].item.itemName]["ItemCategory"]
+		print(activeItemCategory)
+		if activeItemCategory == "Consumable":
+			print("nom")
+			Global.farmingMode = Global.FARMING_MODES.NONE
+		if activeItemCategory == "Tool":
+			print("tool")
+			var activeToolType = JsonData.itemData[slots[PlayerInventory.activeItemSlot].item.itemName]["ToolType"]
+			if activeToolType == "Hoe":
+				Global.farmingMode = Global.FARMING_MODES.DIRT
+		if activeItemCategory == "Seeds":
+			print("plant")
+			Global.farmingMode = Global.FARMING_MODES.SEEDS

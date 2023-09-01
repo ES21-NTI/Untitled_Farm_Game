@@ -8,6 +8,7 @@
 		"ItemCategory": "Consumable",
 		"AddHealth": 5,
 		"ReduceHunger": 15,
+		"UseSpeed": 0.75,
 		"StackSize": 99,
 		"Description": "No sprut"
 	},
@@ -16,9 +17,21 @@
 		"WeaponCategory": "Melee",
 		"WeaponType": "Sword",
 		"Damage": "30",
-		"AttackSpeed": 0.75,
+		"UseSpeed": 0.75,
 		"StackSize": 1,
 		"Description": "Not a diamond sword sword"
-		
+	},
+	"Hoe": {
+		"ItemCategory": "Tool",
+		"ToolType": "Hoe",
+		"UseSpeed": 0.75,
+		"StackSize": 1,
+		"Description": "Used to create farmland"
+	},
+	"Seeds": {
+		"ItemCategory": "Seeds",
+		"UseSpeed": 0.75,
+		"StackSize": 9,
+		"Description": "A handful of seeds"
 	}
 }

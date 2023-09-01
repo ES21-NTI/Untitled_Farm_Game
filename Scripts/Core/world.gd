@@ -12,10 +12,6 @@ var environmentLayer = 2
 var placeSeedCD = "canPlaceSeeds"
 var canHoeGroundCD = "canHoeGround" 
 
-# All of the different modes
-enum FARMING_MODES {SEEDS, DIRT}
-
-var farmingMode = FARMING_MODES.DIRT
 
 # Initialized list of all the different dirt tiles
 var dirtTiles = []
@@ -23,12 +19,6 @@ var dirtTiles = []
 var canReach = false
 
 func _input(_event):
-	if Input.is_action_just_pressed("1"):
-		print("Dirt Selected")
-		farmingMode = FARMING_MODES.DIRT
-	if Input.is_action_just_pressed("2"):
-		print("Seeds Selected")
-		farmingMode = FARMING_MODES.SEEDS
 	if Input.is_action_just_pressed("Use"): # Left mouse button
 		
 		var mousePos = get_global_mouse_position() # Gets mouse position
@@ -40,13 +30,13 @@ func _input(_event):
 		
 		if tileMousePos != tilePlayerPos && canReach == true:
 		
-			if farmingMode == FARMING_MODES.SEEDS:
+			if Global.farmingMode == Global.FARMING_MODES.SEEDS:
 				var atlasCoord = Vector2i(11, 1) # Coordinates for the seeds item on tilemap
 				if retrievingCustomData(tileMousePos, placeSeedCD, groundLayer):
 					var level = 0 # First state of the crop
 					var finalSeedLevel = 3 # Final state of the crop
 					handleSeed(tileMousePos, level, atlasCoord, finalSeedLevel)
-			elif farmingMode == FARMING_MODES.DIRT:
+			elif Global.farmingMode == Global.FARMING_MODES.DIRT:
 				if retrievingCustomData(tileMousePos, canHoeGroundCD, groundLayer):
 					dirtTiles.append(tileMousePos)
 					tilemap.set_cells_terrain_connect(groundLayer, dirtTiles, 2,0)

@@ -18,10 +18,11 @@ var inventory = {
 
 var hotbar = {
 	0: ["Iron Sword", 1],  # slotIndex: [itemName, itemQuantity]
-	1: ["Iron Sword", 1],
+	1: ["Hoe", 1],
 	2: ["Egg", 98],
 	3: ["Egg", 45],
 	4: ["Stick", 69],
+	5: ["Seeds", 13],
 }
 
 
