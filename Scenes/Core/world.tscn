@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bdryj3lu8hf82"]
+[gd_scene load_steps=12 format=3 uid="uid://bdryj3lu8hf82"]
 
 [ext_resource type="Script" path="res://Scripts/Core/world.gd" id="1_w6mem"]
 [ext_resource type="PackedScene" uid="uid://8tonvp41vmsi" path="res://Scenes/Player/player.tscn" id="2_u4mh6"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/Core/camera.gd" id="4_d0ret"]
 [ext_resource type="Script" path="res://Scripts/UI/UserInterface.gd" id="5_y6mmp"]
 [ext_resource type="PackedScene" uid="uid://3ttoi1w1pxje" path="res://Scenes/UI/inventory.tscn" id="6_vyjue"]
+[ext_resource type="PackedScene" uid="uid://cx1kni8wjnbff" path="res://Scenes/UI/hotbar.tscn" id="7_3hpwb"]
 [ext_resource type="PackedScene" uid="uid://ddxpj54j1kcku" path="res://Scenes/Items/ItemDrop.tscn" id="7_16irk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vo8ik"]
@@ -1320,7 +1321,11 @@ script = ExtResource("5_y6mmp")
 
 [node name="Inventory" parent="UserInterface" instance=ExtResource("6_vyjue")]
 visible = false
-scale = Vector2(4, 4)
+scale = Vector2(3, 3)
+
+[node name="Hotbar" parent="UserInterface" instance=ExtResource("7_3hpwb")]
+position = Vector2(260, 563)
+scale = Vector2(3, 3)
 
 [node name="ItemDrop" parent="." instance=ExtResource("7_16irk")]
 position = Vector2(212, 204)

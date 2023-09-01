@@ -1,23 +1,24 @@
 extends Node2D
 
 const SlotClass = preload("res://Scripts/Inventory/Slot.gd")
-@onready var inventorySlots = $GridContainer
 
+@onready var hotbar = $HotbarSlots
+@onready var slots = hotbar.get_children()
 
 func _ready():
-	var slots = inventorySlots.get_children()
 	for i in range(slots.size()):
 		slots[i].gui_input.connect(slotGuiInput.bind(slots[i]))
+		var callable = Callable(slots[i], "refreshStyle")
+		PlayerInventory.activeItemUpdated.connect(callable)
 		slots[i].slotIndex = i
-		slots[i].slotType = SlotClass.SlotType.INVENTORY
-	initializeInventory()
+		slots[i].slotType = SlotClass.SlotType.HOTBAR
+	initializeHotbar()
 
 
-func initializeInventory():
-	var slots = inventorySlots.get_children()
+func initializeHotbar():
 	for i in range(slots.size()):
-		if PlayerInventory.inventory.has(i):
-			slots[i].initializeItem(PlayerInventory.inventory[i][0], PlayerInventory.inventory[i][1])
+		if PlayerInventory.hotbar.has(i):
+			slots[i].initializeItem(PlayerInventory.hotbar[i][0], PlayerInventory.hotbar[i][1])
 
 
 
@@ -42,20 +43,16 @@ func slotGuiInput(event: InputEvent, slot: SlotClass):
 				leftClickNotHolding(slot)
 
 
-func _input(_event):
-	if find_parent("UserInterface").holdingItem:
-		find_parent("UserInterface").holdingItem.global_position = get_global_mouse_position()
-
 
 func leftClickEmptySlot(slot: SlotClass):
-	PlayerInventory.addItemToEmptySlot(find_parent("UserInterface").holdingItem, slot)
+	PlayerInventory.addItemToEmptySlot(find_parent("UserInterface").holdingItem, slot, true)
 	slot.putIntoSlot(find_parent("UserInterface").holdingItem)
 	find_parent("UserInterface").holdingItem = null
 
 
 func leftClickDifferentItem(event: InputEvent, slot: SlotClass):
-	PlayerInventory.removeItem(slot)
-	PlayerInventory.addItemToEmptySlot(find_parent("UserInterface").holdingItem, slot)
+	PlayerInventory.removeItem(slot, true)
+	PlayerInventory.addItemToEmptySlot(find_parent("UserInterface").holdingItem, slot, true)
 	var tempItem = slot.item
 	slot.pickFromSlot(tempItem)
 	tempItem.global_position = event.global_position
@@ -67,18 +64,18 @@ func leftClickSameItem(slot: SlotClass):
 	var stackSize = int(JsonData.itemData[slot.item.itemName]["StackSize"])
 	var ableToAdd = stackSize - slot.item.itemQuantity
 	if ableToAdd >= find_parent("UserInterface").holdingItem.itemQuantity:
-		PlayerInventory.addItemQuantity(slot, find_parent("UserInterface").holdingItem.itemQuantity)
+		PlayerInventory.addItemQuantity(slot, find_parent("UserInterface").holdingItem.itemQuantity, true)
 		slot.item.increaseItemQuantity(find_parent("UserInterface").holdingItem.itemQuantity)
 		find_parent("UserInterface").holdingItem.queue_free()
 		find_parent("UserInterface").holdingItem = null
 	else:
-		PlayerInventory.addItemQuantity(slot, ableToAdd)
+		PlayerInventory.addItemQuantity(slot, ableToAdd, true)
 		slot.item.increaseItemQuantity(ableToAdd)
 		find_parent("UserInterface").holdingItem.decreaseItemQuantity(ableToAdd)
 
 
 func leftClickNotHolding(slot: SlotClass):
-	PlayerInventory.removeItem(slot)
+	PlayerInventory.removeItem(slot, true)
 	find_parent("UserInterface").holdingItem = slot.item
 	slot.pickFromSlot(find_parent("UserInterface").holdingItem)
 	find_parent("UserInterface").holdingItem.global_position = get_global_mouse_position()
