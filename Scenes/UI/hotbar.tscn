@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cx1kni8wjnbff"]
+[gd_scene load_steps=5 format=3 uid="uid://cx1kni8wjnbff"]
 
 [ext_resource type="Texture2D" uid="uid://bskxo80w842g1" path="res://Assets/images/hotbar_background.png" id="1_0wwwm"]
 [ext_resource type="Script" path="res://Scripts/Inventory/hotbar.gd" id="1_64e0t"]
 [ext_resource type="Script" path="res://Scripts/Inventory/Slot.gd" id="2_sh7id"]
+[ext_resource type="FontFile" uid="uid://bynghjonrb57r" path="res://Misc/Fonts/Baskic8.otf" id="4_xptnb"]
 
 [node name="Hotbar" type="Node2D"]
 script = ExtResource("1_64e0t")
@@ -65,3 +66,16 @@ script = ExtResource("2_sh7id")
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 script = ExtResource("2_sh7id")
+
+[node name="ActiveItemLabel" type="Label" parent="."]
+texture_filter = 3
+offset_left = 3.0
+offset_top = -10.0
+offset_right = 393.0
+offset_bottom = 30.0
+scale = Vector2(0.25, 0.25)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("4_xptnb")
+theme_override_font_sizes/font_size = 35
+text = "Sample Text"

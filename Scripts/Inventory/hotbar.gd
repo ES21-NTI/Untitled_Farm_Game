@@ -3,16 +3,28 @@ extends Node2D
 const SlotClass = preload("res://Scripts/Inventory/Slot.gd")
 
 @onready var hotbar = $HotbarSlots
+@onready var activeItemLabel = $ActiveItemLabel
 @onready var slots = hotbar.get_children()
 
 func _ready():
+	
+	var callableUpdateItemLabel = Callable(self, "updateActiveItemLabel")
+	PlayerInventory.activeItemUpdated.connect(callableUpdateItemLabel)
 	for i in range(slots.size()):
 		slots[i].gui_input.connect(slotGuiInput.bind(slots[i]))
-		var callable = Callable(slots[i], "refreshStyle")
-		PlayerInventory.activeItemUpdated.connect(callable)
+		var callableRefreshStyle = Callable(slots[i], "refreshStyle")
+		PlayerInventory.activeItemUpdated.connect(callableRefreshStyle)
 		slots[i].slotIndex = i
 		slots[i].slotType = SlotClass.SlotType.HOTBAR
 	initializeHotbar()
+	updateActiveItemLabel()
+
+
+func updateActiveItemLabel():
+	if slots[PlayerInventory.activeItemSlot].item != null: # Checks if there is an item
+		activeItemLabel.text = slots[PlayerInventory.activeItemSlot].item.itemName
+	else:
+		activeItemLabel.text = ""
 
 
 func initializeHotbar():
@@ -41,6 +53,7 @@ func slotGuiInput(event: InputEvent, slot: SlotClass):
 			
 			elif slot.item: # Not holding an item
 				leftClickNotHolding(slot)
+			updateActiveItemLabel()
 
 
 
