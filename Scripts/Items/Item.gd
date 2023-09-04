@@ -3,6 +3,10 @@ extends Node2D
 var itemName
 var itemQuantity
 
+
+@onready var label = $Label
+
+
 func _ready():
 	var randVal = randi() % 3
 	if randVal == 0:
@@ -17,9 +21,9 @@ func _ready():
 	itemQuantity = randi() % stackSize + 1
 	
 	if stackSize == 1:
-		$Label.visible = false
+		label.visible = false
 	else: 
-		$Label.text = str(itemQuantity)
+		label.text = str(itemQuantity)
 
 
 
@@ -30,18 +34,18 @@ func setItem(nm, qt): # nm = name, qt = quantity
 	
 	var stackSize = int(JsonData.itemData[itemName]["StackSize"])
 	if stackSize == 1:
-		$Label.visible = false
+		label.visible = false
 	else: 
-		$Label.visible = true
-		$Label.text = str(itemQuantity)
+		label.visible = true
+		label.text = str(itemQuantity)
 
 
 
 func increaseItemQuantity(amountToAdd):
 	itemQuantity += amountToAdd
-	$Label.text = str(itemQuantity)
+	label.text = str(itemQuantity)
 
 
 func decreaseItemQuantity(amountToRemove):
 	itemQuantity -= amountToRemove
-	$Label.text = str(itemQuantity)
+	label.text = str(itemQuantity)

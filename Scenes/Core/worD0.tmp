@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bdryj3lu8hf82"]
+[gd_scene load_steps=12 format=3 uid="uid://bdryj3lu8hf82"]
 
 [ext_resource type="Script" path="res://Scripts/Core/world.gd" id="1_w6mem"]
 [ext_resource type="PackedScene" uid="uid://8tonvp41vmsi" path="res://Scenes/Player/player.tscn" id="2_u4mh6"]
@@ -1273,9 +1273,6 @@ sources/0 = SubResource("TileSetAtlasSource_vo8ik")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l6o8q"]
 size = Vector2(48, 48)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ugxpx"]
-size = Vector2(174, 112)
-
 [node name="World" type="Node2D"]
 script = ExtResource("1_w6mem")
 metadata/_edit_vertical_guides_ = [-583.0]
@@ -1326,12 +1323,6 @@ script = ExtResource("5_y6mmp")
 visible = false
 scale = Vector2(3, 3)
 
-[node name="InventoryMouseDetection" type="Area2D" parent="UserInterface/Inventory"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="UserInterface/Inventory/InventoryMouseDetection"]
-position = Vector2(120, 56)
-shape = SubResource("RectangleShape2D_ugxpx")
-
 [node name="Hotbar" parent="UserInterface" instance=ExtResource("7_3hpwb")]
 position = Vector2(260, 563)
 scale = Vector2(3, 3)
@@ -1358,6 +1349,4 @@ collision_layer = 4
 
 [connection signal="mouse_entered" from="Player/Reach" to="." method="_on_reach_mouse_entered"]
 [connection signal="mouse_exited" from="Player/Reach" to="." method="_on_reach_mouse_exited"]
-[connection signal="mouse_entered" from="UserInterface/Inventory/InventoryMouseDetection" to="UserInterface/Hotbar" method="_on_inventory_mouse_detection_mouse_entered"]
-[connection signal="mouse_exited" from="UserInterface/Inventory/InventoryMouseDetection" to="UserInterface/Hotbar" method="_on_inventory_mouse_detection_mouse_exited"]
 [connection signal="ItemPlaced" from="UserInterface/Hotbar" to="." method="_on_hotbar_item_placed"]

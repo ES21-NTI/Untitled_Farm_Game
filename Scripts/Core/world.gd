@@ -18,33 +18,6 @@ var dirtTiles = []
 
 var canReach = false
 
-func _input(_event):
-	if Input.is_action_just_pressed("Use"): # Left mouse button
-		
-		var mousePos = get_global_mouse_position() # Gets mouse position
-		var tileMousePos = tilemap.local_to_map(mousePos) # Converts mouse position to tilemap grid coordinates
-		
-		var playerPos = player.position # Gets players position
-		var tilePlayerPos = tilemap.local_to_map(playerPos) # Converts players position to tilemap grid coordinates
-		
-		
-		if tileMousePos != tilePlayerPos && canReach == true:
-		
-			if Global.farmingMode == Global.FARMING_MODES.SEEDS:
-				var atlasCoord = Vector2i(11, 1) # Coordinates for the seeds item on tilemap
-				if retrievingCustomData(tileMousePos, placeSeedCD, groundLayer):
-					var level = 0 # First state of the crop
-					var finalSeedLevel = 3 # Final state of the crop
-					handleSeed(tileMousePos, level, atlasCoord, finalSeedLevel)
-			elif Global.farmingMode == Global.FARMING_MODES.DIRT:
-				if retrievingCustomData(tileMousePos, canHoeGroundCD, groundLayer):
-					dirtTiles.append(tileMousePos)
-					tilemap.set_cells_terrain_connect(groundLayer, dirtTiles, 2,0)
-		
-		else: 
-			print("Can't reach")
-
-
 
 
 func retrievingCustomData(tileMousePos, customDataLayer, layer):
@@ -75,3 +48,31 @@ func _on_reach_mouse_entered(): # Activates whenever mouse is within the Area2D 
 
 func _on_reach_mouse_exited(): # Dectivates whenever mouse leaves the Area2D Reach 
 	canReach = false
+
+
+func _on_hotbar_item_placed():
+	var mousePos = get_global_mouse_position() # Gets mouse position
+	var tileMousePos = tilemap.local_to_map(mousePos) # Converts mouse position to tilemap grid coordinates
+	
+	var playerPos = player.position # Gets players position
+	var tilePlayerPos = tilemap.local_to_map(playerPos) # Converts players position to tilemap grid coordinates
+	
+	
+	if tileMousePos != tilePlayerPos && canReach == true:
+	
+		if Global.farmingMode == Global.FARMING_MODES.SEEDS:
+			var atlasCoord = Vector2i(11, 1) # Coordinates for the seeds item on tilemap
+			if retrievingCustomData(tileMousePos, placeSeedCD, groundLayer):
+				var level = 0 # First state of the crop
+				var finalSeedLevel = 3 # Final state of the crop
+				handleSeed(tileMousePos, level, atlasCoord, finalSeedLevel)
+		elif Global.farmingMode == Global.FARMING_MODES.DIRT:
+			if retrievingCustomData(tileMousePos, canHoeGroundCD, groundLayer):
+				dirtTiles.append(tileMousePos)
+				tilemap.set_cells_terrain_connect(groundLayer, dirtTiles, 2,0)
+	
+	else: 
+		print("Can't reach")
+
+
+

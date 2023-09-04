@@ -2,9 +2,15 @@ extends Node2D
 
 const SlotClass = preload("res://Scripts/Inventory/Slot.gd")
 
+signal ItemPlaced
+
 @onready var hotbar = $HotbarSlots
 @onready var activeItemLabel = $ActiveItemLabel
 @onready var slots = hotbar.get_children()
+
+
+var mouseOnHotbar = false
+var mouseOnInventory = false
 
 func _ready():
 	
@@ -19,8 +25,7 @@ func _ready():
 	initializeHotbar()
 	updateActiveItemLabel()
 
-#func _process(delta):
-#	useActiveItem()
+
 
 func updateActiveItemLabel():
 	if slots[PlayerInventory.activeItemSlot].item != null: # Checks if there is an item
@@ -97,18 +102,85 @@ func leftClickNotHolding(slot: SlotClass):
 	slot.pickFromSlot(find_parent("UserInterface").holdingItem)
 	find_parent("UserInterface").holdingItem.global_position = get_global_mouse_position()
 
-func equipActiveItem():
+
+
+
+func equipActiveItem(): # Function for equipping the item in current activeItemSlot
 	if slots[PlayerInventory.activeItemSlot].item != null: # Checks if there is an item in the active item slot
+		activeItemLabel.visible = true # Shows the activeItemLabel
 		var activeItemCategory = JsonData.itemData[slots[PlayerInventory.activeItemSlot].item.itemName]["ItemCategory"]
 		print(activeItemCategory)
+		
 		if activeItemCategory == "Consumable":
-			print("nom")
 			Global.farmingMode = Global.FARMING_MODES.NONE
+		
 		if activeItemCategory == "Tool":
-			print("tool")
+			
 			var activeToolType = JsonData.itemData[slots[PlayerInventory.activeItemSlot].item.itemName]["ToolType"]
+			
 			if activeToolType == "Hoe":
 				Global.farmingMode = Global.FARMING_MODES.DIRT
+		
 		if activeItemCategory == "Seeds":
-			print("plant")
 			Global.farmingMode = Global.FARMING_MODES.SEEDS
+
+
+func useItem(): # Function for using the current active item in activeItemSlot
+	
+	if slots[PlayerInventory.activeItemSlot].item.itemQuantity != 1: # Checks if there's more items left in the stack
+		slots[PlayerInventory.activeItemSlot].item.decreaseItemQuantity(1) # Decreases the itemQuantity of the activeItemSlot by 1 
+	
+	else: # It's the last item left in the stack
+		PlayerInventory.removeItem(slots[PlayerInventory.activeItemSlot], true) # Removes the active item from the PlayerInventory hotbar list
+		slots[PlayerInventory.activeItemSlot].item.queue_free() # Deletes the Item node inside of the activeItem's HotbarSlot
+		slots[PlayerInventory.activeItemSlot].item = null # Makes the slot empty
+		activeItemLabel.visible = false # Hides the activeItemLabel
+
+
+
+func _input(event):
+	
+	if slots[PlayerInventory.activeItemSlot].item != null: # Checks if there is an item in the active item slot
+		
+		var activeItemName = slots[PlayerInventory.activeItemSlot].item.itemName
+		var activeItemCategory = JsonData.itemData[slots[PlayerInventory.activeItemSlot].item.itemName]["ItemCategory"]
+		
+		if event is InputEventMouseButton:
+			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and mouseOnHotbar != true and mouseOnInventory != true: # Fixes a weird mouse movement bug causing multiple uses when using items 
+				
+				if activeItemCategory == "Consumable":
+					
+					if activeItemName == "Egg":
+						
+						useItem()
+						print(slots[PlayerInventory.activeItemSlot].item.itemQuantity)
+					
+				if activeItemCategory == "Tool":
+					
+					var activeToolType = JsonData.itemData[slots[PlayerInventory.activeItemSlot].item.itemName]["ToolType"]
+					
+					if activeToolType == "Hoe":
+						ItemPlaced.emit() # Tells the world script that something has been placed on the tilemap
+					
+				if activeItemCategory == "Seeds":
+					useItem()
+					ItemPlaced.emit() # Tells the world script that something has been placed on the tilemap
+					
+		else:
+			pass
+
+
+func _on_mouse_detection_mouse_entered():
+	mouseOnHotbar = true
+
+
+func _on_mouse_detection_mouse_exited():
+	mouseOnHotbar = false
+
+
+func _on_inventory_mouse_detection_mouse_entered():
+	mouseOnInventory = true
+
+
+func _on_inventory_mouse_detection_mouse_exited():
+	mouseOnInventory = false

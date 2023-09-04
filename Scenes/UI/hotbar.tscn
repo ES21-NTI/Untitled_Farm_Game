@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://cx1kni8wjnbff"]
+[gd_scene load_steps=6 format=3 uid="uid://cx1kni8wjnbff"]
 
 [ext_resource type="Texture2D" uid="uid://bskxo80w842g1" path="res://Assets/images/hotbar_background.png" id="1_0wwwm"]
 [ext_resource type="Script" path="res://Scripts/Inventory/hotbar.gd" id="1_64e0t"]
 [ext_resource type="Script" path="res://Scripts/Inventory/Slot.gd" id="2_sh7id"]
 [ext_resource type="FontFile" uid="uid://bynghjonrb57r" path="res://Misc/Fonts/Baskic8.otf" id="4_xptnb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ik2ek"]
+size = Vector2(197, 22)
 
 [node name="Hotbar" type="Node2D"]
 script = ExtResource("1_64e0t")
@@ -79,3 +82,12 @@ theme_override_constants/outline_size = 7
 theme_override_fonts/font = ExtResource("4_xptnb")
 theme_override_font_sizes/font_size = 35
 text = "Sample Text"
+
+[node name="MouseDetection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseDetection"]
+position = Vector2(98.5, 11)
+shape = SubResource("RectangleShape2D_ik2ek")
+
+[connection signal="mouse_entered" from="MouseDetection" to="." method="_on_mouse_detection_mouse_entered"]
+[connection signal="mouse_exited" from="MouseDetection" to="." method="_on_mouse_detection_mouse_exited"]
