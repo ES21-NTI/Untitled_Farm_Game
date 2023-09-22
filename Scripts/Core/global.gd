@@ -1,7 +1,7 @@
 extends Node
 
 # All of the different modes
-enum FARMING_MODES {SEEDS, DIRT, NONE}
+enum FARMING_MODES {SEEDS, HOE, NONE}
 
 var farmingMode = FARMING_MODES.NONE
 

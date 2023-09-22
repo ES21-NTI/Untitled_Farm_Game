@@ -8,9 +8,10 @@ signal ItemPlaced
 @onready var activeItemLabel = $ActiveItemLabel
 @onready var slots = hotbar.get_children()
 
-
 var mouseOnHotbar = false
 var mouseOnInventory = false
+
+var placable = false
 
 func _ready():
 	
@@ -119,7 +120,7 @@ func equipActiveItem(): # Function for equipping the item in current activeItemS
 			var activeToolType = JsonData.itemData[slots[PlayerInventory.activeItemSlot].item.itemName]["ToolType"]
 			
 			if activeToolType == "Hoe":
-				Global.farmingMode = Global.FARMING_MODES.DIRT
+				Global.farmingMode = Global.FARMING_MODES.HOE
 		
 		if activeItemCategory == "Seeds":
 			Global.farmingMode = Global.FARMING_MODES.SEEDS
@@ -151,7 +152,6 @@ func _input(event):
 				if activeItemCategory == "Consumable":
 					
 					if activeItemName == "Egg":
-						
 						useItem()
 						print(slots[PlayerInventory.activeItemSlot].item.itemQuantity)
 					
@@ -160,11 +160,15 @@ func _input(event):
 					var activeToolType = JsonData.itemData[slots[PlayerInventory.activeItemSlot].item.itemName]["ToolType"]
 					
 					if activeToolType == "Hoe":
-						ItemPlaced.emit() # Tells the world script that something has been placed on the tilemap
+						ItemPlaced.emit() # Is trying to be placed on the tilemap
 					
 				if activeItemCategory == "Seeds":
-					useItem()
-					ItemPlaced.emit() # Tells the world script that something has been placed on the tilemap
+					ItemPlaced.emit() # Is trying to be placed on the tilemap
+					if placable == true: #Checks if the item was placed
+						useItem()
+						placable = false #Makes sure the item can't be placed again
+					else:
+						pass
 					
 		else:
 			pass
@@ -184,3 +188,7 @@ func _on_inventory_mouse_detection_mouse_entered():
 
 func _on_inventory_mouse_detection_mouse_exited():
 	mouseOnInventory = false
+
+
+func _on_world_placeable():
+	placable = true
