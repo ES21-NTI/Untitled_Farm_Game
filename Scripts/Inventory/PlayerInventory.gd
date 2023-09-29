@@ -60,6 +60,7 @@ var hotbar = {
 	4: ["Stick", 69],
 	5: ["Seeds", 13],
 	6: ["Seeds", 6],
+	7: ["Scythe", 1],
 }
 
 #var hotbar = { # For debug purposes

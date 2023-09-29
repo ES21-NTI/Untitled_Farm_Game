@@ -33,5 +33,12 @@
 		"UseSpeed": 0.75,
 		"StackSize": 9,
 		"Description": "A handful of seeds"
+	},
+	"Scythe": {
+		"ItemCategory": "Tool",
+		"ToolType": "Scythe",
+		"UseSpeed": 0.75,
+		"StackSize": 1,
+		"Description": "Used to harvest crops"
 	}
 }

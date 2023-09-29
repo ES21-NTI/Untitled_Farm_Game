@@ -121,6 +121,9 @@ func equipActiveItem(): # Function for equipping the item in current activeItemS
 			
 			if activeToolType == "Hoe":
 				Global.farmingMode = Global.FARMING_MODES.HOE
+			
+			if activeToolType == "Scythe":
+				Global.farmingMode = Global.FARMING_MODES.SCYTHE
 		
 		if activeItemCategory == "Seeds":
 			Global.farmingMode = Global.FARMING_MODES.SEEDS
@@ -161,6 +164,8 @@ func _input(event):
 					
 					if activeToolType == "Hoe":
 						ItemPlaced.emit() # Is trying to be placed on the tilemap
+					elif activeToolType == "Scythe":
+						ItemPlaced.emit()
 					
 				if activeItemCategory == "Seeds":
 					ItemPlaced.emit() # Is trying to be placed on the tilemap

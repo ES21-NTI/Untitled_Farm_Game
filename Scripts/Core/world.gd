@@ -14,6 +14,7 @@ var cropsLayer = 3
 var placeSeedCD = "canPlaceSeeds"
 var canHoeGroundCD = "canHoeGround" 
 var cropsPlacedCD = "cropsPlaced"
+var harvestCD = "harvest"
 
 # Initialized list of all the different dirt tiles
 var dirtTiles = []
@@ -90,6 +91,11 @@ func _on_hotbar_item_placed():
 			if retrievingCustomData(placingPos, canHoeGroundCD, groundLayer):
 				dirtTiles.append(placingPos)
 				tilemap.set_cells_terrain_connect(environmentLayer, dirtTiles, 3,0)
-
-
+				
+		elif Global.farmingMode == Global.FARMING_MODES.SCYTHE:
+			if retrievingCustomData(placingPos, harvestCD, cropsLayer):
+				print("yay")
+#				fix drop system
+				
+		
 

@@ -41,6 +41,7 @@ texture = ExtResource("2_vbsjv")
 13:1/0/custom_data_2 = true
 14:1/0 = 0
 14:1/0/custom_data_2 = true
+14:1/0/custom_data_3 = true
 0:2/0 = 0
 0:2/0/terrain_set = 2
 0:2/0/terrain = 0
@@ -1663,6 +1664,8 @@ custom_data_layer_1/name = "canHoeGround"
 custom_data_layer_1/type = 1
 custom_data_layer_2/name = "cropsPlaced"
 custom_data_layer_2/type = 1
+custom_data_layer_3/name = "harvest"
+custom_data_layer_3/type = 1
 sources/0 = SubResource("TileSetAtlasSource_vo8ik")
 sources/1 = SubResource("TileSetAtlasSource_o2u1w")
 
