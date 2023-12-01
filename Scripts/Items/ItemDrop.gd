@@ -6,13 +6,18 @@ const MAX_SPEED = 225
 
 
 var itemName
+var itemQuantity
+var itemCategory
 
 var player = null
 var beingPickedUp = false
 
-
-func _ready():
-	itemName = "Egg"
+func _ready(): # 
+	itemName = Global.itemDropName
+	itemQuantity = Global.itemDropQuantity
+	itemCategory = Global.itemDropCategory
+	if itemName != null: # Fixes a weird instantiation glitch that crashes the game at launch
+		$Sprite2D.texture = load("res://Assets/item_icons/" + itemName + ".png")
 
 
 func _physics_process(delta):
@@ -22,7 +27,7 @@ func _physics_process(delta):
 		
 		var distance = global_position.distance_to(player.global_position)
 		if distance < 10:
-			PlayerInventory.addItem(itemName, 1)
+			PlayerInventory.addItem(itemName, itemQuantity)
 			queue_free()
 		move_and_slide()
 
@@ -30,3 +35,4 @@ func _physics_process(delta):
 func pickUpItem(body):
 	player = body
 	beingPickedUp = true
+

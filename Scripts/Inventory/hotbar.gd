@@ -1,12 +1,15 @@
 extends Node2D
 
 const SlotClass = preload("res://Scripts/Inventory/Slot.gd")
+var egg = preload("res://Scenes/Items/ItemDrop.tscn")
 
 signal ItemPlaced
+signal DropItem
 
 @onready var hotbar = $HotbarSlots
 @onready var activeItemLabel = $ActiveItemLabel
 @onready var slots = hotbar.get_children()
+
 
 var mouseOnHotbar = false
 var mouseOnInventory = false
@@ -128,6 +131,11 @@ func equipActiveItem(): # Function for equipping the item in current activeItemS
 		if activeItemCategory == "Seeds":
 			Global.farmingMode = Global.FARMING_MODES.SEEDS
 
+func deleteItem():
+	PlayerInventory.removeItem(slots[PlayerInventory.activeItemSlot], true) # Removes the active item from the PlayerInventory hotbar list
+	slots[PlayerInventory.activeItemSlot].item.queue_free() # Deletes the Item node inside of the activeItem's HotbarSlot
+	slots[PlayerInventory.activeItemSlot].item = null # Makes the slot empty
+	activeItemLabel.visible = false # Hides the activeItemLabel
 
 func useItem(): # Function for using the current active item in activeItemSlot
 	
@@ -135,10 +143,7 @@ func useItem(): # Function for using the current active item in activeItemSlot
 		slots[PlayerInventory.activeItemSlot].item.decreaseItemQuantity(1) # Decreases the itemQuantity of the activeItemSlot by 1 
 	
 	else: # It's the last item left in the stack
-		PlayerInventory.removeItem(slots[PlayerInventory.activeItemSlot], true) # Removes the active item from the PlayerInventory hotbar list
-		slots[PlayerInventory.activeItemSlot].item.queue_free() # Deletes the Item node inside of the activeItem's HotbarSlot
-		slots[PlayerInventory.activeItemSlot].item = null # Makes the slot empty
-		activeItemLabel.visible = false # Hides the activeItemLabel
+		deleteItem()
 
 
 
@@ -148,6 +153,7 @@ func _input(event):
 		
 		var activeItemName = slots[PlayerInventory.activeItemSlot].item.itemName
 		var activeItemCategory = JsonData.itemData[slots[PlayerInventory.activeItemSlot].item.itemName]["ItemCategory"]
+		var activeItemQuantity = slots[PlayerInventory.activeItemSlot].item.itemQuantity
 		
 		if event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and mouseOnHotbar != true and mouseOnInventory != true: # Fixes a weird mouse movement bug causing multiple uses when using items 
@@ -174,9 +180,19 @@ func _input(event):
 						placable = false #Makes sure the item can't be placed again
 					else:
 						pass
-					
+			
+		if event.is_action_pressed("Drop"): # F key on keyboard
+			
+			Global.itemDropName = activeItemName
+			Global.itemDropCategory = activeItemCategory
+			Global.itemDropQuantity = activeItemQuantity
+			DropItem.emit()
+			
+			deleteItem()
+			
 		else:
 			pass
+
 
 
 func _on_mouse_detection_mouse_entered():
@@ -197,3 +213,6 @@ func _on_inventory_mouse_detection_mouse_exited():
 
 func _on_world_placeable():
 	placable = true
+
+
+

@@ -5,6 +5,7 @@ extends Node2D
 var egg = preload("res://Scenes/Items/ItemDrop.tscn")
 
 signal placeable #signal to say something could be placed
+signal playerPos(pos)
 
 # Tilemap layers
 var groundLayer = 1
@@ -16,6 +17,12 @@ var placeSeedCD = "canPlaceSeeds"
 var canHoeGroundCD = "canHoeGround" 
 var cropsPlacedCD = "cropsPlaced"
 var harvestCD = "harvest"
+
+
+
+
+
+
 
 # Initialized list of all the different dirt tiles
 var dirtTiles = []
@@ -54,12 +61,11 @@ func handleSeed(placingPos, level, atlasCoord, finalSeedLevel):
 #	canReach = false
 
 func _on_hotbar_item_placed():
+	
 	var mousePos = get_global_mouse_position() # Gets mouse position
 	var tileMousePos = tilemap.local_to_map(mousePos) # Converts mouse position to tilemap grid coordinates
-	print(tileMousePos)
 	var playerPos = player.position # Gets players position
 	var tilePlayerPos = tilemap.local_to_map(playerPos) # Converts players position to tilemap grid coordinates
-	
 	var placingPos = Vector2(0,0)
 	
 #VVV No matter where you click the thing will happen next to the player
@@ -115,3 +121,14 @@ func _on_hotbar_item_placed():
 				
 		
 
+
+
+func _on_hotbar_drop_item():
+	print("among us")
+	var playerPos = player.position # Gets players position
+	var tilePlayerPos = tilemap.local_to_map(playerPos) # Converts players position to tilemap grid coordinates
+	var scene_instance = egg.instantiate() 
+	add_child(scene_instance)
+	scene_instance.collision_layer = 4 # Sets the collision layer to 3 so that pickupZone can detect it
+	print(tilePlayerPos)
+	scene_instance.global_position = tilemap.map_to_local(tilePlayerPos) # Sets the spawned item position to be tilemaps placingPos

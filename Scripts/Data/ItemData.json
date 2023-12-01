@@ -31,7 +31,7 @@
 	"Seeds": {
 		"ItemCategory": "Seeds",
 		"UseSpeed": 0.75,
-		"StackSize": 9,
+		"StackSize": 15,
 		"Description": "A handful of seeds"
 	},
 	"Scythe": {
