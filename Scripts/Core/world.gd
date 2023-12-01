@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var tilemap = $Tilemap
 @onready var player = $Player
+var egg = preload("res://Scenes/Items/ItemDrop.tscn")
 
 signal placeable #signal to say something could be placed
 
@@ -32,8 +33,11 @@ func retrievingCustomData(usingPos, customDataLayer, layer):
 func handleSeed(placingPos, level, atlasCoord, finalSeedLevel):
 	var sourceID = 0
 	tilemap.set_cell(cropsLayer, placingPos, sourceID, atlasCoord)
-	
-	await get_tree().create_timer(5.0).timeout # Creates a timer and sets it for 5 seconds
+#	print(cropsLayer)
+#	print(placingPos)
+#	print(sourceID)
+#	print(atlasCoord)
+	await get_tree().create_timer(1.0).timeout # Creates a timer and sets it for 5 seconds
 	
 	if level == finalSeedLevel: # Checks if the current crop level is at the final level
 		return
@@ -52,7 +56,7 @@ func handleSeed(placingPos, level, atlasCoord, finalSeedLevel):
 func _on_hotbar_item_placed():
 	var mousePos = get_global_mouse_position() # Gets mouse position
 	var tileMousePos = tilemap.local_to_map(mousePos) # Converts mouse position to tilemap grid coordinates
-	
+	print(tileMousePos)
 	var playerPos = player.position # Gets players position
 	var tilePlayerPos = tilemap.local_to_map(playerPos) # Converts players position to tilemap grid coordinates
 	
@@ -93,8 +97,20 @@ func _on_hotbar_item_placed():
 				tilemap.set_cells_terrain_connect(environmentLayer, dirtTiles, 3,0)
 				
 		elif Global.farmingMode == Global.FARMING_MODES.SCYTHE:
+			var atlasCoord = Vector2i(14, 1)
 			if retrievingCustomData(placingPos, harvestCD, cropsLayer):
 				print("yay")
+				
+				atlasCoord = Vector2i(-1, -1) # Sets the tile index to clear
+				tilemap.set_cell(cropsLayer, placingPos, 0, atlasCoord) # Removes 
+				
+				# Spawns item
+				var scene_instance = egg.instantiate() 
+				add_child(scene_instance)
+				scene_instance.collision_layer = 4 # Sets the collision layer to 3 so that pickupZone can detect it
+				print(placingPos)
+				scene_instance.global_position = tilemap.map_to_local(placingPos) # Sets the spawned item position to be tilemaps placingPos
+				
 #				fix drop system
 				
 		

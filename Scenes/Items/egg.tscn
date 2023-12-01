@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bceeh422s8sh4"]
+
+[ext_resource type="Texture2D" uid="uid://ctx581vdnv1kl" path="res://Assets/Sprout Lands - Sprites - Basic pack/Objects/Egg item.png" id="1_ykh2q"]
+
+[node name="egg" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_ykh2q")
