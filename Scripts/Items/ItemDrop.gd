@@ -12,7 +12,7 @@ var itemCategory
 var player = null
 var beingPickedUp = false
 
-func _ready(): # 
+func _ready(): # Defines and sets information of the dropped item
 	itemName = Global.itemDropName
 	itemQuantity = Global.itemDropQuantity
 	itemCategory = Global.itemDropCategory

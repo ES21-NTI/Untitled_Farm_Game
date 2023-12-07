@@ -19,11 +19,6 @@ var cropsPlacedCD = "cropsPlaced"
 var harvestCD = "harvest"
 
 
-
-
-
-
-
 # Initialized list of all the different dirt tiles
 var dirtTiles = []
 
@@ -53,12 +48,7 @@ func handleSeed(placingPos, level, atlasCoord, finalSeedLevel):
 		handleSeed(placingPos, level + 1, newAtlas, finalSeedLevel) # Changes the tile to the next one
 
 
-#func _on_reach_mouse_entered(): # Activates whenever mouse is within the Area2D Reach 
-#	canReach = true
 
-
-#func _on_reach_mouse_exited(): # Dectivates whenever mouse leaves the Area2D Reach 
-#	canReach = false
 
 func _on_hotbar_item_placed():
 	
@@ -68,7 +58,7 @@ func _on_hotbar_item_placed():
 	var tilePlayerPos = tilemap.local_to_map(playerPos) # Converts players position to tilemap grid coordinates
 	var placingPos = Vector2(0,0)
 	
-#VVV No matter where you click the thing will happen next to the player
+# VVV No matter where you click the thing will happen next to the player VVV
 	if tileMousePos[0] > tilePlayerPos[0]:
 		placingPos[0] = tilePlayerPos[0] + 1
 	else:
@@ -91,11 +81,11 @@ func _on_hotbar_item_placed():
 			if retrievingCustomData(placingPos, placeSeedCD, environmentLayer):
 				var level = 0 # First state of the crop
 				var finalSeedLevel = 3 # Final state of the crop
-				if retrievingCustomData(placingPos, cropsPlacedCD, cropsLayer): #Checks if there are any crops the the tile
+				if retrievingCustomData(placingPos, cropsPlacedCD, cropsLayer): # Checks if there are any crops the the tile
 					pass
 				else:
-					placeable.emit() #Tells hotbar the seeds could be placed 
-					handleSeed(placingPos, level, atlasCoord, finalSeedLevel) #Places the seeds on the tilemap
+					placeable.emit() # Tells hotbar the seeds could be placed 
+					handleSeed(placingPos, level, atlasCoord, finalSeedLevel) # Places the seeds on the tilemap
 		
 		elif Global.farmingMode == Global.FARMING_MODES.HOE:
 			if retrievingCustomData(placingPos, canHoeGroundCD, groundLayer):
@@ -116,19 +106,15 @@ func _on_hotbar_item_placed():
 				scene_instance.collision_layer = 4 # Sets the collision layer to 3 so that pickupZone can detect it
 				print(placingPos)
 				scene_instance.global_position = tilemap.map_to_local(placingPos) # Sets the spawned item position to be tilemaps placingPos
-				
-#				fix drop system
-				
 		
 
 
 
 func _on_hotbar_drop_item():
-	print("among us")
 	var playerPos = player.position # Gets players position
 	var tilePlayerPos = tilemap.local_to_map(playerPos) # Converts players position to tilemap grid coordinates
 	var scene_instance = egg.instantiate() 
 	add_child(scene_instance)
 	scene_instance.collision_layer = 4 # Sets the collision layer to 3 so that pickupZone can detect it
-	print(tilePlayerPos)
+	# print(tilePlayerPos)
 	scene_instance.global_position = tilemap.map_to_local(tilePlayerPos) # Sets the spawned item position to be tilemaps placingPos
