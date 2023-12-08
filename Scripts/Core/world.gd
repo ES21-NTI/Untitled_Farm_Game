@@ -101,6 +101,9 @@ func _on_hotbar_item_placed():
 				tilemap.set_cell(cropsLayer, placingPos, 0, atlasCoord) # Removes 
 				
 				# Spawns item
+				Global.itemDropName =  "Egg"
+				Global.itemDropQuantity = 1
+				Global.itemDropCategory = "Consumable"
 				var scene_instance = egg.instantiate() 
 				add_child(scene_instance)
 				scene_instance.collision_layer = 4 # Sets the collision layer to 3 so that pickupZone can detect it

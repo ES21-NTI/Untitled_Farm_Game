@@ -9,46 +9,46 @@ const NUM_HOTBAR_SLOTS = 9
 
 
 
-var inventory = {
-	0: ["Iron Sword", 1],  # slotIndex: [itemName, itemQuantity]
-	1: ["Hoe", 1],
-	2: ["Egg", 98],
-	3: ["Egg", 45],
-	4: ["Stick", 69],
-	5: ["Seeds", 13],
-	6: ["Seeds", 6],
-}
-
-#var inventory = { # For debug purposes
-#	0: ["Stick", 99],  # slotIndex: [itemName, itemQuantity]
-#	1: ["Stick", 99],
-#	2: ["Stick", 99],
-#	3: ["Stick", 99],
-#	4: ["Stick", 99],
-#	5: ["Stick", 99],
-#	6: ["Stick", 99],
-#	7: ["Stick", 99],
-#	8: ["Stick", 99],
-#	9: ["Stick", 99],  
-#	10: ["Stick", 99],
-#	11: ["Stick", 99],
-#	12: ["Stick", 99],
-#	13: ["Stick", 99],
-#	14: ["Stick", 99],
-#	15: ["Stick", 99],
-#	16: ["Stick", 99],
-#	17: ["Stick", 99],
-#	18: ["Stick", 99],
-#	19: ["Stick", 99],
-#	20: ["Stick", 99],
-#	21: ["Stick", 99],
-#	22: ["Stick", 99],
-#	23: ["Stick", 99],
-#	24: ["Stick", 99],
-#	25: ["Stick", 99],
-#	26: ["Stick", 99],
-#	27: ["Stick", 99],
+#var inventory = {
+#	0: ["Iron Sword", 1],  # slotIndex: [itemName, itemQuantity]
+#	1: ["Hoe", 1],
+#	2: ["Egg", 98],
+#	3: ["Egg", 45],
+#	4: ["Stick", 69],
+#	5: ["Seeds", 13],
+#	6: ["Seeds", 6],
 #}
+
+var inventory = { # For debug purposes
+	0: ["Stick", 99],  # slotIndex: [itemName, itemQuantity]
+	1: ["Stick", 99],
+	2: ["Stick", 99],
+	3: ["Stick", 99],
+	4: ["Stick", 99],
+	5: ["Stick", 99],
+	6: ["Stick", 99],
+	7: ["Stick", 99],
+	8: ["Stick", 99],
+	9: ["Stick", 99],  
+	10: ["Stick", 99],
+	11: ["Stick", 99],
+	12: ["Stick", 99],
+	13: ["Stick", 99],
+	14: ["Stick", 99],
+	15: ["Stick", 99],
+	16: ["Stick", 99],
+	17: ["Stick", 99],
+	18: ["Stick", 99],
+	19: ["Stick", 99],
+	20: ["Stick", 99],
+	21: ["Stick", 99],
+	22: ["Stick", 99],
+	23: ["Stick", 99],
+	24: ["Stick", 99],
+	25: ["Stick", 99],
+	26: ["Stick", 99],
+	27: ["Stick", 99],
+}
 
 
 

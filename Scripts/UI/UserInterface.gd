@@ -11,3 +11,4 @@ func _input(event):
 		PlayerInventory.activeItemScrollDown()
 	elif event.is_action_pressed("ScrollDown"):
 		PlayerInventory.activeItemScrollUp()
+	
