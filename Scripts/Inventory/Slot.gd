@@ -1,12 +1,14 @@
 extends Panel
 
-var defaultTex = preload("res://Assets/UI/item_slot_default_background.png")
-var emptyTex = preload("res://Assets/UI/item_slot_empty_background.png")
-var selectedTex = preload("res://Assets/images/item_slot_selected_background.png")
+var defaultTex = preload("res://Assets/UI/defaultSlot.png")
+var emptyTex = preload("res://Assets/UI/emptySlot.png")
+var selectedTex = preload("res://Assets/UI/inventoryslot1.png")
+var eSelectedTex = preload("res://Assets/UI/emptySelected.png")
 
 var defaultStyle : StyleBoxTexture = null
 var emptyStyle : StyleBoxTexture = null
 var selectedStyle : StyleBoxTexture = null
+var selectedEmptyStyle : StyleBoxTexture = null
 
 var itemClass = preload("res://Scenes/Items/item.tscn")
 var item = null
@@ -17,6 +19,8 @@ var slotType
 enum SlotType {
 	HOTBAR = 0,
 	INVENTORY,
+	MATERIALS,
+	CRAFTING,
 }
 
 
@@ -25,9 +29,11 @@ func _ready():
 	defaultStyle = StyleBoxTexture.new()
 	emptyStyle = StyleBoxTexture.new()
 	selectedStyle = StyleBoxTexture.new()
+	selectedEmptyStyle = StyleBoxTexture.new()
 	defaultStyle.texture = defaultTex
 	emptyStyle.texture = emptyTex
 	selectedStyle.texture = selectedTex
+	selectedEmptyStyle.texture = eSelectedTex
 	
 	# Randomizes the inventory
 #	if randi() % 2 == 0:
@@ -37,12 +43,15 @@ func _ready():
 
 
 func refreshStyle():
-	if SlotType.HOTBAR == slotType and PlayerInventory.activeItemSlot == slotIndex:
+	if  SlotType.HOTBAR == slotType and PlayerInventory.activeItemSlot == slotIndex:
 		set('theme_override_styles/panel', selectedStyle)
 	elif item == null:
 		set('theme_override_styles/panel', emptyStyle)
 	else:
 		set('theme_override_styles/panel', defaultStyle)
+	
+	if item == null and SlotType.HOTBAR == slotType and PlayerInventory.activeItemSlot == slotIndex:
+		set('theme_override_styles/panel', selectedEmptyStyle)
 
 
 func pickFromSlot(newItem):

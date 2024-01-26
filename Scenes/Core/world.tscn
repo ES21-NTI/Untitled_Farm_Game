@@ -1,13 +1,13 @@
-[gd_scene load_steps=13 format=3 uid="uid://bdryj3lu8hf82"]
+[gd_scene load_steps=14 format=3 uid="uid://bdryj3lu8hf82"]
 
 [ext_resource type="Script" path="res://Scripts/Core/world.gd" id="1_w6mem"]
 [ext_resource type="PackedScene" uid="uid://8tonvp41vmsi" path="res://Scenes/Player/player.tscn" id="2_u4mh6"]
 [ext_resource type="Texture2D" uid="uid://dx02gpvptrq02" path="res://Assets/Paradise_Asset_Pack_FREE/FOR_TUTORIAL/tilemap1.png" id="2_vbsjv"]
 [ext_resource type="Texture2D" uid="uid://dbmf5br5j75uw" path="res://Assets/Tilemaps/tile.png" id="3_kl6qh"]
-[ext_resource type="Script" path="res://Scripts/Core/camera.gd" id="4_d0ret"]
 [ext_resource type="Script" path="res://Scripts/UI/UserInterface.gd" id="5_y6mmp"]
 [ext_resource type="PackedScene" uid="uid://3ttoi1w1pxje" path="res://Scenes/UI/inventory.tscn" id="6_vyjue"]
 [ext_resource type="PackedScene" uid="uid://cx1kni8wjnbff" path="res://Scenes/UI/hotbar.tscn" id="7_3hpwb"]
+[ext_resource type="PackedScene" uid="uid://bqrx5ooe3d0f5" path="res://Scenes/UI/crafting_menu.tscn" id="8_37r5x"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vo8ik"]
 texture = ExtResource("2_vbsjv")
@@ -1671,6 +1671,8 @@ sources/1 = SubResource("TileSetAtlasSource_o2u1w")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ugxpx"]
 size = Vector2(174, 112)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dgcmc"]
+
 [node name="World" type="Node2D"]
 script = ExtResource("1_w6mem")
 metadata/_edit_vertical_guides_ = [-583.0]
@@ -1706,14 +1708,6 @@ layer_3/tile_data = PackedInt32Array()
 position = Vector2(162, 168)
 collision_layer = 2
 
-[node name="Camera" type="Camera2D" parent="Player" node_paths=PackedStringArray("tilemap")]
-zoom = Vector2(4, 4)
-position_smoothing_enabled = true
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-script = ExtResource("4_d0ret")
-tilemap = NodePath("../../Tilemap")
-
 [node name="UserInterface" type="CanvasLayer" parent="."]
 script = ExtResource("5_y6mmp")
 
@@ -1732,8 +1726,23 @@ shape = SubResource("RectangleShape2D_ugxpx")
 position = Vector2(260, 563)
 scale = Vector2(3, 3)
 
+[node name="CraftingMenu" parent="UserInterface" instance=ExtResource("8_37r5x")]
+visible = false
+position = Vector2(19, 331)
+scale = Vector2(3, 3)
+
+[node name="Trigger" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger"]
+position = Vector2(192, 241)
+shape = SubResource("RectangleShape2D_dgcmc")
+debug_color = Color(0.8, 0.396078, 0.380392, 0.419608)
+
 [connection signal="placeable" from="." to="UserInterface/Hotbar" method="_on_world_placeable"]
 [connection signal="mouse_entered" from="UserInterface/Inventory/InventoryMouseDetection" to="UserInterface/Hotbar" method="_on_inventory_mouse_detection_mouse_entered"]
 [connection signal="mouse_exited" from="UserInterface/Inventory/InventoryMouseDetection" to="UserInterface/Hotbar" method="_on_inventory_mouse_detection_mouse_exited"]
 [connection signal="DropItem" from="UserInterface/Hotbar" to="." method="_on_hotbar_drop_item"]
 [connection signal="ItemPlaced" from="UserInterface/Hotbar" to="." method="_on_hotbar_item_placed"]
+[connection signal="body_entered" from="Trigger" to="." method="_on_trigger_body_entered"]

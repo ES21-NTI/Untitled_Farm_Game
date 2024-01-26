@@ -1,12 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://cx1kni8wjnbff"]
+[gd_scene load_steps=8 format=3 uid="uid://cx1kni8wjnbff"]
 
-[ext_resource type="Texture2D" uid="uid://bskxo80w842g1" path="res://Assets/images/hotbar_background.png" id="1_0wwwm"]
 [ext_resource type="Script" path="res://Scripts/Inventory/hotbar.gd" id="1_64e0t"]
+[ext_resource type="Texture2D" uid="uid://cmrkg7mxxa48l" path="res://Assets/UI/hotbar.png" id="2_0ql8r"]
 [ext_resource type="Script" path="res://Scripts/Inventory/Slot.gd" id="2_sh7id"]
+[ext_resource type="Texture2D" uid="uid://bse2d1vri76ik" path="res://Assets/UI/emptySlot.png" id="3_ogj0t"]
 [ext_resource type="FontFile" uid="uid://bynghjonrb57r" path="res://Misc/Fonts/Baskic8.otf" id="4_xptnb"]
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iut32"]
+texture = ExtResource("3_ogj0t")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ik2ek"]
-size = Vector2(197, 22)
+size = Vector2(218, 26)
 
 [node name="Hotbar" type="Node2D"]
 script = ExtResource("1_64e0t")
@@ -15,59 +19,69 @@ script = ExtResource("1_64e0t")
 texture_filter = 3
 offset_right = 197.0
 offset_bottom = 22.0
-texture = ExtResource("1_0wwwm")
+texture = ExtResource("2_0ql8r")
 
 [node name="HotbarSlots" type="GridContainer" parent="."]
+texture_filter = 3
 offset_left = 5.0
-offset_top = 2.0
-offset_right = 199.0
+offset_top = 3.0
+offset_right = 218.0
 offset_bottom = 42.0
-theme_override_constants/h_separation = 3
+theme_override_constants/h_separation = 4
 columns = 9
 
 [node name="HotbarSlot1" type="Panel" parent="HotbarSlots"]
-custom_minimum_size = Vector2(18, 18)
+custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_iut32")
 script = ExtResource("2_sh7id")
 
 [node name="HotbarSlot2" type="Panel" parent="HotbarSlots"]
-custom_minimum_size = Vector2(18, 18)
+custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_iut32")
 script = ExtResource("2_sh7id")
 
 [node name="HotbarSlot3" type="Panel" parent="HotbarSlots"]
-custom_minimum_size = Vector2(18, 18)
+custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_iut32")
 script = ExtResource("2_sh7id")
 
 [node name="HotbarSlot4" type="Panel" parent="HotbarSlots"]
-custom_minimum_size = Vector2(18, 18)
+custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_iut32")
 script = ExtResource("2_sh7id")
 
 [node name="HotbarSlot5" type="Panel" parent="HotbarSlots"]
-custom_minimum_size = Vector2(18, 18)
+custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_iut32")
 script = ExtResource("2_sh7id")
 
 [node name="HotbarSlot6" type="Panel" parent="HotbarSlots"]
-custom_minimum_size = Vector2(18, 18)
+custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_iut32")
 script = ExtResource("2_sh7id")
 
 [node name="HotbarSlot7" type="Panel" parent="HotbarSlots"]
-custom_minimum_size = Vector2(18, 18)
+custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_iut32")
 script = ExtResource("2_sh7id")
 
 [node name="HotbarSlot8" type="Panel" parent="HotbarSlots"]
-custom_minimum_size = Vector2(18, 18)
+custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_iut32")
 script = ExtResource("2_sh7id")
 
 [node name="HotbarSlot9" type="Panel" parent="HotbarSlots"]
-custom_minimum_size = Vector2(18, 18)
+custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_iut32")
 script = ExtResource("2_sh7id")
 
 [node name="ActiveItemLabel" type="Label" parent="."]
@@ -86,7 +100,7 @@ text = "Sample Text"
 [node name="MouseDetection" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MouseDetection"]
-position = Vector2(98.5, 11)
+position = Vector2(111, 13)
 shape = SubResource("RectangleShape2D_ik2ek")
 
 [connection signal="mouse_entered" from="MouseDetection" to="." method="_on_mouse_detection_mouse_entered"]

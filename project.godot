@@ -22,6 +22,10 @@ JsonData="*res://Scripts/Data/JSONData.gd"
 PlayerInventory="*res://Scripts/Inventory/PlayerInventory.gd"
 ItemDrop="*res://Scripts/Items/ItemDrop.gd"
 
+[filesystem]
+
+import/blender/enabled=false
+
 [input]
 
 MoveUp={

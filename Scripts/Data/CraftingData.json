@@ -1,0 +1,44 @@
+{
+	"Stick": {
+		"Material1": "Egg",
+		"MaterialAmnt": 1,
+		"Description": "Is stick"
+	},
+	"Egg": {
+		"ItemCategory": "Consumable",
+		"AddHealth": 5,
+		"ReduceHunger": 15,
+		"UseSpeed": 0.75,
+		"StackSize": 99,
+		"Description": "No sprut"
+	},
+	"Iron Sword": {
+		"ItemCategory": "Weapon",
+		"WeaponCategory": "Melee",
+		"WeaponType": "Sword",
+		"Damage": "30",
+		"UseSpeed": 0.75,
+		"StackSize": 1,
+		"Description": "Not a diamond sword sword"
+	},
+	"Hoe": {
+		"ItemCategory": "Tool",
+		"ToolType": "Hoe",
+		"UseSpeed": 0.75,
+		"StackSize": 1,
+		"Description": "Used to create farmland"
+	},
+	"Seeds": {
+		"ItemCategory": "Seeds",
+		"UseSpeed": 0.75,
+		"StackSize": 15,
+		"Description": "A handful of seeds"
+	},
+	"Scythe": {
+		"ItemCategory": "Tool",
+		"ToolType": "Scythe",
+		"UseSpeed": 0.75,
+		"StackSize": 1,
+		"Description": "Used to harvest crops"
+	}
+}

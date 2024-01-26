@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-
 var speed = 100.0
 
 @onready var sprite = $AnimatedSprite2D
