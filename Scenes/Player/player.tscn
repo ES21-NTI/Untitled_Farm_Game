@@ -418,6 +418,10 @@ animations = [{
 size = Vector2(48, 48)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
+<<<<<<< HEAD
+=======
+z_index = 1
+>>>>>>> 832d077 (merged no.11 and whooooops versions)
 script = ExtResource("1_qk652")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player"]]

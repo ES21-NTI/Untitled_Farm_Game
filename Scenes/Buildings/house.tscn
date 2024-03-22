@@ -144,6 +144,16 @@ size = Vector2(20, 192)
 script = ExtResource("1_nbykt")
 metadata/_edit_vertical_guides_ = [-583.0]
 
+<<<<<<< HEAD
+=======
+[node name="Background" type="ColorRect" parent="."]
+offset_left = -119.0
+offset_top = -51.0
+offset_right = 373.0
+offset_bottom = 240.0
+color = Color(0, 0, 0, 1)
+
+>>>>>>> 832d077 (merged no.11 and whooooops versions)
 [node name="Tilemap" type="TileMap" parent="."]
 texture_filter = 3
 tile_set = SubResource("TileSet_nyvl4")
@@ -175,6 +185,13 @@ layer_3/tile_data = PackedInt32Array()
 position = Vector2(69, 173)
 collision_layer = 2
 
+<<<<<<< HEAD
+=======
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(124, 98)
+zoom = Vector2(2.5, 2.5)
+
+>>>>>>> 832d077 (merged no.11 and whooooops versions)
 [node name="UserInterface" type="CanvasLayer" parent="."]
 script = ExtResource("3_ticxo")
 
@@ -231,3 +248,7 @@ debug_color = Color(0.811765, 0.384314, 0.388235, 0.419608)
 [connection signal="DropItem" from="UserInterface/Hotbar" to="." method="_on_hotbar_drop_item" flags=18]
 [connection signal="ItemPlaced" from="UserInterface/Hotbar" to="." method="_on_hotbar_item_placed" flags=18]
 [connection signal="body_entered" from="Trigger" to="." method="_on_trigger_body_entered"]
+<<<<<<< HEAD
+=======
+[connection signal="body_exited" from="Trigger" to="." method="_on_trigger_body_exited"]
+>>>>>>> 832d077 (merged no.11 and whooooops versions)

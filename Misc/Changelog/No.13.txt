@@ -1,0 +1,39 @@
+V.4
+Added main house graphic
+Added Y-sorting for main house
+Changed world ground tilemap
+Added comments in World and House script for scene change
+
+v.5
+Added Building scene
+Added background in House scene
+Added Camera to HouseInside
+Added Camera script to World camera
+Added func _input in House script
+Added _on_trigger_body_exited in House script
+Added var available in House script
+
+Changed code in _on_trigger_body_entered
+
+Moved Camera from player to World
+Moved Camera script from scenes folder to script core folder
+
+Removed trigger from World scene
+Removed change scene from world
+
+Working on HousePicker...
+
+BUG
+Having to press E multiple times to pick up eggs
+
+V.6
+Added area2d to HousePicker scene + related code in HousePicker script
+
+Changed Player script to pick up everything when E is pressed
+
+Connected signals from Hotbar to World 
+
+BUG
+Can't hoe ground FIXED
+Can't pick up to hotbar
+Picked up item disappears if there's no space in inventory

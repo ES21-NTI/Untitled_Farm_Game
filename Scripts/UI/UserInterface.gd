@@ -2,6 +2,7 @@ extends CanvasLayer
 
 var holdingItem = null
 
+#Displays UI for Inventory and HousePick
 func _input(event):
 	if event.is_action_pressed("Inventory"):
 		$Inventory.visible = !$Inventory.visible
@@ -12,3 +13,5 @@ func _input(event):
 	elif event.is_action_pressed("ScrollDown"):
 		PlayerInventory.activeItemScrollUp()
 	
+	if event.is_action_pressed("HousePick"):
+		$HousePicker.visible = !$HousePicker.visible

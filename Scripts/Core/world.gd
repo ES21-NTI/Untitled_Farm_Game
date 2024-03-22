@@ -51,7 +51,6 @@ func handleSeed(placingPos, level, atlasCoord, finalSeedLevel):
 
 
 func _on_hotbar_item_placed():
-	
 	var mousePos = get_global_mouse_position() # Gets mouse position
 	var tileMousePos = tilemap.local_to_map(mousePos) # Converts mouse position to tilemap grid coordinates
 	var playerPos = player.position # Gets players position
@@ -88,6 +87,7 @@ func _on_hotbar_item_placed():
 					handleSeed(placingPos, level, atlasCoord, finalSeedLevel) # Places the seeds on the tilemap
 		
 		elif Global.farmingMode == Global.FARMING_MODES.HOE:
+			print("12345t6y")
 			if retrievingCustomData(placingPos, canHoeGroundCD, groundLayer):
 				dirtTiles.append(placingPos)
 				tilemap.set_cells_terrain_connect(environmentLayer, dirtTiles, 3,0)
@@ -122,6 +122,7 @@ func _on_hotbar_drop_item():
 	# print(tilePlayerPos)
 	scene_instance.global_position = tilemap.map_to_local(tilePlayerPos) # Sets the spawned item position to be tilemaps placingPos
 
+<<<<<<< HEAD
 func _on_scene_changed():
 	queue_free()
 
@@ -129,3 +130,5 @@ func _on_trigger_body_entered(body):
 	if body.is_in_group("Player"):
 			Global.change_scene("res://Scenes/Buildings/house.tscn")
 			Global.scene_changed.connect(_on_scene_changed)
+=======
+>>>>>>> 832d077 (merged no.11 and whooooops versions)
